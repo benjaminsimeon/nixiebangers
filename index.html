@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Coming soon …</title>
   <style>
-    :root { color-scheme: dark; }
     html, body {
       height: 100%;
     }
@@ -23,20 +22,9 @@
       margin: 0;
       text-align: center;
     }
-    /* Optional: sanftes Blinken der Auslassungspunkte */
-    .dots::after {
-      content: " …";
-      animation: pulse 1.5s steps(3, end) infinite;
-    }
-    @keyframes pulse {
-      0% { content: ""; }
-      33% { content: "."; }
-      66% { content: " .."; }
-      100% { content: " ..."; }
-    }
   </style>
 </head>
 <body>
-  <h1><span class="dots">Coming soon</span></h1>
+  <h1>Coming soon …</h1>
 </body>
 </html>

@@ -3,51 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explosion / Partikel Effekt</title>
+  <title>Glitch Effekt</title>
   <style>
-    body, html {
+    body {
       margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
+      display: grid;
+      place-items: center;
+      height: 100vh;
       background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
       color: #fff;
-      font-family: Arial, sans-serif;
-    }
-    #particles-js {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+      overflow: hidden;
     }
     h1 {
-      font-size: 2rem;
-      z-index: 1;
+      font-size: 3rem;
+      font-family: monospace;
+      position: relative;
+      text-transform: uppercase;
+      animation: glitch 1s infinite;
+    }
+    h1::before, h1::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+    }
+    h1::before {
+      color: red;
+      animation: glitchTop 1s infinite;
+    }
+    h1::after {
+      color: blue;
+      animation: glitchBottom 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { transform: none; }
+      20% { transform: skew(-5deg); }
+      40% { transform: skew(5deg); }
+      60% { transform: none; }
+      80% { transform: skew(2deg); }
+      100% { transform: none; }
+    }
+    @keyframes glitchTop {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      20% { clip: rect(0, 9999px, 100px, 0); transform: translate(-5px, -5px); }
+      40% { clip: rect(0, 9999px, 0, 0); }
+      60% { clip: rect(0, 9999px, 100px, 0); transform: translate(5px, -5px); }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+    @keyframes glitchBottom {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      20% { clip: rect(0, 9999px, 100px, 0); transform: translate(5px, 5px); }
+      40% { clip: rect(0, 9999px, 0, 0); }
+      60% { clip: rect(0, 9999px, 100px, 0); transform: translate(-5px, 5px); }
+      100% { clip: rect(0, 9999px, 0, 0); }
     }
   </style>
 </head>
 <body>
-  <div id="particles-js"></div>
-  <h1>Nixie Bangers 2026 - coming soon …</h1>
-
-  <script src="https://urldefense.com/v3/__https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js__;!!BBM_p3AAtQ!IhuO8IRC5MuSHrTV91kLkha8SDeWsNuCAw9fx9-CHgvlrHDewg0g3Cq9T7XU9ll0oXdBfW5Z2myczFoM0aD_Puwt5c259A$ "></script>
-  <script>
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 100 },
-        size: { value: 3 },
-        move: { speed: 5 },
-        line_linked: { enable: false },
-        color: { value: "#ffffff" }
-      },
-      interactivity: {
-        events: { onclick: { enable: true, mode: "repulse" } }
-      }
-    });
-  </script>
+  <h1 data-text="Nixie Bangers 2026">Nixie Bangers 2026 - coming soon …</h1>
 </body>
 </html>

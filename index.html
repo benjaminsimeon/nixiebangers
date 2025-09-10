@@ -1,30 +1,53 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nixie Bangers 2026 - coming soon …</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explosion / Partikel Effekt</title>
   <style>
-    html, body {
-      height: 100%;
-    }
-    body {
+    body, html {
       margin: 0;
-      background: #000;            /* schwarzer Hintergrund */
-      color: #fff;                 /* weiße Schrift */
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      display: grid;
-      place-items: center;         /* zentriert horizontal & vertikal */
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
     h1 {
-      font-size: clamp(2rem, 6vw, 4rem);
-      letter-spacing: 0.02em;
-      margin: 0;
-      text-align: center;
+      font-size: 2rem;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
-  <h1>Nixie Bangers 2026 - Coming soon …</h1>
+  <div id="particles-js"></div>
+  <h1>Nixie Bangers 2026 - coming soon …</h1>
+
+  <script src="https://urldefense.com/v3/__https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js__;!!BBM_p3AAtQ!IhuO8IRC5MuSHrTV91kLkha8SDeWsNuCAw9fx9-CHgvlrHDewg0g3Cq9T7XU9ll0oXdBfW5Z2myczFoM0aD_Puwt5c259A$ "></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100 },
+        size: { value: 3 },
+        move: { speed: 5 },
+        line_linked: { enable: false },
+        color: { value: "#ffffff" }
+      },
+      interactivity: {
+        events: { onclick: { enable: true, mode: "repulse" } }
+      }
+    });
+  </script>
 </body>
 </html>

@@ -3,63 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glitch Effekt</title>
+  <title>Nixie Bangers Intro</title>
   <style>
     body {
       margin: 0;
-      display: grid;
-      place-items: center;
       height: 100vh;
       background: #000;
       color: #fff;
-      overflow: hidden;
-    }
-    h1 {
-      font-size: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       font-family: monospace;
-      position: relative;
-      text-transform: uppercase;
-      animation: glitch 1s infinite;
-    }
-    h1::before, h1::after {
-      content: attr(data-text);
-      position: absolute;
-      left: 0;
-    }
-    h1::before {
-      color: red;
-      animation: glitchTop 1s infinite;
-    }
-    h1::after {
-      color: blue;
-      animation: glitchBottom 1s infinite;
+      text-align: center;
     }
 
-    @keyframes glitch {
-      0% { transform: none; }
-      20% { transform: skew(-5deg); }
-      40% { transform: skew(5deg); }
-      60% { transform: none; }
-      80% { transform: skew(2deg); }
-      100% { transform: none; }
+    h1, h2 {
+      opacity: 0;
+      margin: 0.5rem 0;
     }
-    @keyframes glitchTop {
-      0% { clip: rect(0, 9999px, 0, 0); }
-      20% { clip: rect(0, 9999px, 100px, 0); transform: translate(-5px, -5px); }
-      40% { clip: rect(0, 9999px, 0, 0); }
-      60% { clip: rect(0, 9999px, 100px, 0); transform: translate(5px, -5px); }
-      100% { clip: rect(0, 9999px, 0, 0); }
+
+    h1 {
+      font-size: 2.5rem;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 2s; /* 2 Sekunden warten, bevor der Fade-in startet */
     }
-    @keyframes glitchBottom {
-      0% { clip: rect(0, 9999px, 0, 0); }
-      20% { clip: rect(0, 9999px, 100px, 0); transform: translate(5px, 5px); }
-      40% { clip: rect(0, 9999px, 0, 0); }
-      60% { clip: rect(0, 9999px, 100px, 0); transform: translate(-5px, 5px); }
-      100% { clip: rect(0, 9999px, 0, 0); }
+
+    h2 {
+      font-size: 1.5rem;
+      border-right: 2px solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 13ch; } /* Länge von "Coming soon …" = 13 Zeichen */
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
     }
   </style>
 </head>
 <body>
-  <h1 data-text="Nixie Bangers 2026">Nixie Bangers 2026 - coming soon …</h1>
+  <h1 id="main-title">Nixie Bangers 2026</h1>
+  <h2 id="sub-title">Coming soon …</h2>
+
+  <script>
+    // Gesamtdauer: 2s Delay + 2s Fade-in = 4s
+    setTimeout(() => {
+      const subtitle = document.getElementById("sub-title");
+      subtitle.style.opacity = 1;
+      subtitle.style.animation =
+        "typing 3s steps(13, end) forwards, blink 0.7s infinite";
+    }, 4000);
+  </script>
 </body>
 </html>

@@ -31,21 +31,33 @@
       transform: translate(-50%, -50%);
       opacity: 0;
       width: 100%;
-      animation: fadeSequence 15s linear forwards;
     }
 
-    /* Phasen-Steuerung */
-    #nixie { animation-delay: 0s; }
-    #location { animation-delay: 4.5s; }
-    #coming { animation-delay: 9s; }
-
-    /* Fade-In / Fade-Out Übergänge */
+    /* Basis-Animation */
     @keyframes fadeSequence {
       0% { opacity: 0; }
       10% { opacity: 1; }
       30% { opacity: 1; }
       40% { opacity: 0; }
       100% { opacity: 0; }
+    }
+
+    /* Fade-In/Out Steuerung */
+    #nixie {
+      animation: fadeSequence 4.5s linear 0s forwards;
+    }
+    #location {
+      animation: fadeSequence 4.5s linear 4.5s forwards;
+    }
+    #coming {
+      animation: fadeInStay 6s linear 9s forwards;
+    }
+
+    /* Für das finale „Coming Soon“: bleibt sichtbar */
+    @keyframes fadeInStay {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      100% { opacity: 1; }
     }
 
     h1 {

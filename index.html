@@ -3,44 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Countdown bis 31. Oktober</title>
+  <title>Nixie Bangers Countdown</title>
   <style>
     html, body {
       height: 100%;
       margin: 0;
-      display: grid;
-      place-items: center;
-      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #000 60%, #111 100%);
       color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Orbitron", Arial, sans-serif;
+      overflow: hidden;
       text-align: center;
     }
-    #countdown {
+
+    .fade {
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      position: absolute;
+    }
+
+    .show {
+      opacity: 1;
+    }
+
+    h1 {
       font-size: 3rem;
       letter-spacing: 0.05em;
     }
-    h1 {
+
+    #countdown {
       font-size: 2rem;
-      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+      margin-top: 0.5em;
+    }
+
+    .glow {
+      text-shadow: 0 0 10px #ff6600, 0 0 20px #ff3300, 0 0 40px #ff0000;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.85; }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
     }
   </style>
 </head>
 <body>
-  <div>
-    <h1>Countdown bis 31. Oktober</h1>
+  <div id="nixie" class="fade glow">
+    <h1>nixie Bangers</h1>
+  </div>
+
+  <div id="location" class="fade glow">
+    <h1>Location 2026</h1>
+  </div>
+
+  <div id="coming" class="fade glow">
+    <h1>Coming Soon</h1>
     <div id="countdown"></div>
   </div>
 
   <script>
-    // Ziel-Datum: 31. Oktober 23:59:59
-    const targetDate = new Date(new Date().getFullYear(), 9, 31, 23, 59, 59).getTime(); // Monat 9 = Oktober
+    const nixie = document.getElementById('nixie');
+    const locationDiv = document.getElementById('location');
+    const coming = document.getElementById('coming');
+    const countdownEl = document.getElementById('countdown');
+
+    // Übergangszeiten in ms
+    const timings = {
+      nixie: 0,
+      location: 4000,
+      coming: 8000
+    };
+
+    // Fade-In Sequenz
+    setTimeout(() => nixie.classList.add('show', 'pulse'), timings.nixie);
+    setTimeout(() => nixie.classList.remove('show'), timings.location - 1500);
+    setTimeout(() => locationDiv.classList.add('show', 'pulse'), timings.location);
+    setTimeout(() => locationDiv.classList.remove('show'), timings.coming - 1500);
+    setTimeout(() => coming.classList.add('show', 'pulse'), timings.coming);
+
+    // Countdown bis 6. Dezember 23:59:59
+    const targetDate = new Date(new Date().getFullYear(), 11, 6, 23, 59, 59).getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        document.getElementById('countdown').innerHTML = '🎉 Heute ist der 31. Oktober!';
+        countdownEl.innerHTML = '🎉 Heute ist der 6. Dezember!';
         clearInterval(timer);
         return;
       }
@@ -50,8 +105,7 @@
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      document.getElementById('countdown').innerHTML =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
     const timer = setInterval(updateCountdown, 1000);

@@ -3,25 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nixie Bangers Countdown</title>
+  <title>Nixie Bangers - Halloween Countdown</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@500&display=swap');
+
     html, body {
       height: 100%;
       margin: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at center, #000 60%, #111 100%);
-      color: #fff;
-      font-family: "Orbitron", Arial, sans-serif;
+      background: radial-gradient(circle at center, #000 60%, #1a0000 100%);
+      color: #ff6600;
+      font-family: 'Creepster', cursive;
       overflow: hidden;
       text-align: center;
+      position: relative;
     }
 
-    .fade {
-      opacity: 0;
-      transition: opacity 1.5s ease;
+    .screen {
       position: absolute;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      width: 100%;
+      text-align: center;
     }
 
     .show {
@@ -29,40 +34,68 @@
     }
 
     h1 {
-      font-size: 3rem;
-      letter-spacing: 0.05em;
+      font-size: 4rem;
+      letter-spacing: 0.08em;
+      margin: 0;
+      text-shadow: 0 0 15px #ff3300, 0 0 30px #ff6600;
+      animation: flicker 3s infinite;
     }
 
     #countdown {
+      font-family: 'Orbitron', sans-serif;
       font-size: 2rem;
-      letter-spacing: 0.1em;
+      color: #fff;
       margin-top: 0.5em;
+      text-shadow: 0 0 10px #ff6600, 0 0 20px #ff3300;
+      animation: flicker 2s infinite alternate;
     }
 
-    .glow {
-      text-shadow: 0 0 10px #ff6600, 0 0 20px #ff3300, 0 0 40px #ff0000;
+    /* Leichtes Flackern */
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.3; }
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.05); opacity: 0.85; }
+    /* Nebel-Effekt */
+    .fog {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 80%);
+      animation: fogMove 60s linear infinite;
+      pointer-events: none;
+      filter: blur(80px);
     }
 
-    .pulse {
-      animation: pulse 2s infinite;
+    @keyframes fogMove {
+      from { transform: translate(-50%, -50%) scale(1); }
+      to { transform: translate(50%, 50%) scale(1.2); }
+    }
+
+    /* Kürbis-Glühen unten */
+    .glow-bottom {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      background: radial-gradient(ellipse at bottom, rgba(255,100,0,0.4), transparent 70%);
+      filter: blur(40px);
     }
   </style>
 </head>
 <body>
-  <div id="nixie" class="fade glow">
+  <div class="fog"></div>
+  <div class="glow-bottom"></div>
+
+  <div id="nixie" class="screen">
     <h1>nixie Bangers</h1>
   </div>
 
-  <div id="location" class="fade glow">
+  <div id="location" class="screen">
     <h1>Location 2026</h1>
   </div>
 
-  <div id="coming" class="fade glow">
+  <div id="coming" class="screen">
     <h1>Coming Soon</h1>
     <div id="countdown"></div>
   </div>
@@ -73,19 +106,19 @@
     const coming = document.getElementById('coming');
     const countdownEl = document.getElementById('countdown');
 
-    // Übergangszeiten in ms
+    // Zeitsteuerung
     const timings = {
       nixie: 0,
       location: 4000,
       coming: 8000
     };
 
-    // Fade-In Sequenz
-    setTimeout(() => nixie.classList.add('show', 'pulse'), timings.nixie);
+    // Sequenz mit Fade-In/Out
+    setTimeout(() => nixie.classList.add('show'), timings.nixie);
     setTimeout(() => nixie.classList.remove('show'), timings.location - 1500);
-    setTimeout(() => locationDiv.classList.add('show', 'pulse'), timings.location);
+    setTimeout(() => locationDiv.classList.add('show'), timings.location);
     setTimeout(() => locationDiv.classList.remove('show'), timings.coming - 1500);
-    setTimeout(() => coming.classList.add('show', 'pulse'), timings.coming);
+    setTimeout(() => coming.classList.add('show'), timings.coming);
 
     // Countdown bis 6. Dezember 23:59:59
     const targetDate = new Date(new Date().getFullYear(), 11, 6, 23, 59, 59).getTime();
@@ -95,7 +128,7 @@
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        countdownEl.innerHTML = '🎉 Heute ist der 6. Dezember!';
+        countdownEl.innerHTML = '🎃 Heute ist der 6. Dezember!';
         clearInterval(timer);
         return;
       }

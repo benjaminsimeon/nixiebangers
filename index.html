@@ -87,7 +87,7 @@
     /* Reveal für Lavrion Koordinaten */
     .reveal {
       opacity: 0;                            /* Start: unsichtbar */
-      animation: revealFadeIn 4s ease forwards;  /* Dauer 4 Sekunden, nur Fade-In */
+      animation: revealFadeIn 5s ease forwards;  /* Dauer 5 Sekunden, nur Fade-In */
       animation-delay: 0.5s;                 /* optional: leichtes Verzögern */
       display: inline-block;
     }
@@ -111,12 +111,12 @@
     const countdownEl = document.getElementById("countdown");
 
     // 6. Dezember 2025, 12:00 MEZ (UTC+1)
-    const targetDate = new Date(Date.UTC(2025, 9, 6, 11, 0, 0));
+    const targetDate = new Date(Date.UTC(2025, 11, 6, 11, 0, 0));
     let target = targetDate.getTime();
 
     const now = new Date().getTime();
     if (target - now <= 0) {
-      target = now + 10 * 1000; // mindestens 10 Sekunden Countdown
+      target = now + 5 * 1000; // mindestens 10 Sekunden Countdown
     }
 
     function updateCountdown() {
@@ -128,7 +128,7 @@
 
         // Fade-In Koordinaten
         countdownEl.innerHTML = `
-          <span class="reveal">📍 Hamburg<br>
+          <span class="reveal">📍 Lavrion<br>
           <a href="https://maps.app.goo.gl/nRRxy8nKheQZ59yu8" target="_blank">
             37.711827, 24.055645
           </a></span>

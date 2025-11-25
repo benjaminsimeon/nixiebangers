@@ -8,7 +8,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-    /* Grundlayout */
     html, body {
       margin: 0;
       padding: 0;
@@ -25,7 +24,6 @@
       position: relative;
     }
 
-    /* Hintergrundbild (nur als Pseudo-Element) */
     body::before {
       content: "";
       position: fixed;
@@ -37,7 +35,6 @@
       transition: filter 2s ease;
     }
 
-    /* Mobile Hintergrund */
     @media (max-width: 768px) {
       body::before {
         background: url('images/background-mobile.png') no-repeat center center;
@@ -45,15 +42,13 @@
       }
     }
 
-    /* Entfernt Blur bei Countdown-Ende */
     .unblur::before {
       filter: none;
     }
 
-    /* Container für Countdown/Text */
     .top-container {
       position: relative;
-      z-index: 1; /* Text über dem Hintergrund */
+      z-index: 1;
       width: 100%;
       margin-top: 12vh;
       padding: 0 2rem;
@@ -75,11 +70,14 @@
     }
 
     #countdown a {
-      color: inherit;       /* nimmt die gleiche Farbe wie der Text */
-      text-decoration: underline; /* entfernt Unterstreichung */
+      color: inherit;
+      text-decoration: none;
     }
 
-    /* Fade-In Animation */
+    #countdown a:hover {
+      text-decoration: underline;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -96,17 +94,25 @@
   </div>
 
   <script>
-    // Countdown-Ziel: 6. Dezember 2025 23:59:59
-    // const target = new Date(2025, 11, 6, 23, 59, 59).getTime();
-    const target = new Date(new Date().getTime() + 10 * 1000);
     const countdownEl = document.getElementById("countdown");
+
+    // 6. Dezember 2025, 12:00 MEZ (UTC+1)
+    const targetDate = new Date(Date.UTC(2025, 11, 6, 11, 0, 0)); 
+    // Warum 11 Uhr UTC? MEZ = UTC+1, also 12 Uhr MEZ = 11 Uhr UTC
+
+    let target = targetDate.getTime();
+
+    // Wenn die Seite nach Ablauf besucht wird → mindestens 10 Sekunden Countdown
+    const now = new Date().getTime();
+    if (target - now <= 0) {
+      target = now + 10 * 1000; // 10 Sekunden Countdown
+    }
 
     function updateCountdown() {
       const now = new Date().getTime();
       const diff = target - now;
 
       if (diff <= 0) {
-        // Countdown vorbei → Hintergrund scharf & Koordinaten anzeigen
         document.body.classList.add("unblur");
         countdownEl.innerHTML = `
           📍 Lavrion<br>

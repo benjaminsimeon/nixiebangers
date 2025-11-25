@@ -71,7 +71,7 @@
 
     #countdown a {
       color: inherit;
-      text-decoration: none;
+      text-decoration: underline;
     }
 
     #countdown a:hover {
@@ -111,7 +111,7 @@
     const countdownEl = document.getElementById("countdown");
 
     // 6. Dezember 2025, 12:00 MEZ (UTC+1)
-    const targetDate = new Date(Date.UTC(2025, 11, 6, 11, 0, 0));
+    const targetDate = new Date(Date.UTC(2025, 11, 6, 8, 0, 0));
     let target = targetDate.getTime();
 
     const now = new Date().getTime();
@@ -128,7 +128,7 @@
 
         // Fade-In Koordinaten
         countdownEl.innerHTML = `
-          <span class="reveal">📍 Lavrion<br>
+          <span class="reveal">📍 Hamburg<br>
           <a href="https://maps.app.goo.gl/nRRxy8nKheQZ59yu8" target="_blank">
             37.711827, 24.055645
           </a></span>

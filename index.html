@@ -104,8 +104,10 @@
         // Countdown vorbei → Hintergrund scharf & Koordinaten anzeigen
         document.body.classList.add("unblur");
         countdownEl.innerHTML = `
-          📍 Hamburg<br>
-          53.5511° N, 9.9937° E
+          📍 Lavrion<br>
+          <a href="https://maps.app.goo.gl/nRRxy8nKheQZ59yu8" target="_blank">
+            37.711827, 24.055645
+          </a>
         `;
         clearInterval(timer);
         return;

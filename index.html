@@ -133,28 +133,31 @@
     const countdownEl = document.getElementById("countdown");
     const revealBtn = document.getElementById("revealButton");
     const music = document.getElementById("bgMusic");
-
+    
     // Countdown auf 6. Dezember 2025 12:00 MEZ (UTC+1)
     const targetDate = new Date(Date.UTC(2025, 8, 6, 11, 0, 0));
     let target = targetDate.getTime();
-
-    const now = new Date().getTime();
-    if (target - now <= 0) {
-      target = now + 10 * 1000; // Mindestens 10 Sekunden Countdown
+    
+    function showRevealButton() {
+      countdownEl.textContent = '';
+      revealBtn.style.display = 'inline-block';
     }
-
-    const timer = setInterval(updateCountdown, 1000);
-    updateCountdown();
-
+    
+    // Prüfen, ob Countdown schon abgelaufen ist
+    if (target - Date.now() <= 0) {
+      showRevealButton(); // sofort Button zeigen
+    } else {
+      const timer = setInterval(updateCountdown, 1000);
+      updateCountdown();
+    }
+    
     function updateCountdown() {
       const now = new Date().getTime();
       const diff = target - now;
-
+    
       if (diff <= 0) {
         clearInterval(timer);
-        // Countdown vorbei → Button anzeigen
-        countdownEl.textContent = '';
-        revealBtn.style.display = 'inline-block';
+        showRevealButton();
         return;
       }
 
@@ -162,7 +165,7 @@
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
+    
       countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 

@@ -8,9 +8,11 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
+    /* Grundlayout */
     html, body {
-      height: 100%;
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: "Orbitron", Arial, sans-serif;
       color: #fff;
       display: flex;
@@ -20,29 +22,40 @@
       overflow: hidden;
       opacity: 0;
       animation: fadeIn 1.5s ease-in-out forwards;
+      position: relative;
     }
 
-    /* Hintergrund: Desktop */
-    body {
-      background: url('images/background-desktop.png') no-repeat center center fixed;
+    /* Hintergrundbild (nur als Pseudo-Element) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url('images/background-desktop.png') no-repeat center center;
       background-size: cover;
-      filter: blur(6px); /* Blur für beide Varianten */
+      filter: blur(6px);
+      z-index: -1;
+      transition: filter 2s ease;
     }
 
-    /* Hintergrund: Mobile */
+    /* Mobile Hintergrund */
     @media (max-width: 768px) {
-      body {
-        background: url('images/background-mobile.png') no-repeat center center fixed;
+      body::before {
+        background: url('images/background-mobile.png') no-repeat center center;
         background-size: cover;
-        filter: blur(6px);
       }
     }
 
-    /* Container für Countdown / Info */
+    /* Entfernt Blur bei Countdown-Ende */
+    .unblur::before {
+      filter: none;
+    }
+
+    /* Container für Countdown/Text */
     .top-container {
-      position: absolute;
-      top: 12vh;
+      position: relative;
+      z-index: 1; /* Text über dem Hintergrund */
       width: 100%;
+      margin-top: 12vh;
       padding: 0 2rem;
       text-shadow: 0 0 10px #ff6600, 0 0 20px #ff3300, 0 0 40px #ff0000;
       opacity: 0;
@@ -61,6 +74,7 @@
       letter-spacing: 0.1em;
     }
 
+    /* Fade-In Animation */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -86,7 +100,8 @@
       const diff = target - now;
 
       if (diff <= 0) {
-        // Wenn Countdown endet → Koordinaten anzeigen
+        // Countdown vorbei → Hintergrund scharf & Koordinaten anzeigen
+        document.body.classList.add("unblur");
         countdownEl.innerHTML = `
           📍 Hamburg<br>
           53.5511° N, 9.9937° E

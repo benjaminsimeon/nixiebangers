@@ -92,7 +92,8 @@
 
   <script>
     // Countdown-Ziel: 6. Dezember 2025 23:59:59
-    const target = new Date(2025, 11, 6, 23, 59, 59).getTime();
+    // const target = new Date(2025, 11, 6, 23, 59, 59).getTime();
+    const target = new Date(new Date().getTime() + 10 * 1000);
     const countdownEl = document.getElementById("countdown");
 
     function updateCountdown() {
